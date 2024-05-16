@@ -1,7 +1,8 @@
 {
-  "name": "frontend-project-11",
+  "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/KhikmatullinB/frontend-project-11/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/KhikmatullinB/frontend-project-11/actions)",
+  "type": "module",
+  "description": "My 3 project: RSS Aggregator",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,8 +10,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@webpack-cli/generators": "^3.0.7",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.29.1"
+    "eslint-plugin-import": "^2.29.1",
+    "html-webpack-plugin": "^5.6.0",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
   }
 }
