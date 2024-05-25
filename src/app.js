@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 import i18next from 'i18next';
 import resources from '../locales/ru.js';
+import axios from 'axios';
 
 const runApp = () => {
   const i18nextInstance = i18next.createInstance();
@@ -48,7 +49,7 @@ const runApp = () => {
     modal,
   };
 
-  const watchedState = Onchange(initialState, elements, i18nextInstance);
+  const watchedState = watch(initialState, elements, i18nextInstance);
 
   elements.form.addEventListener('submit', (event) => {
     event.preventDefault();
