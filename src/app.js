@@ -6,7 +6,7 @@ const runApp = () => {
   const i18nextInstance = i18next.createInstance();
   i18nextInstance.init({
     lng: 'ru',
-    debug: true,
+    debug: false,
     resources,
   });
 
@@ -47,4 +47,19 @@ const runApp = () => {
     posts,
     modal,
   };
+
+  const watchedState = Onchange(initialState, elements, i18nextInstance);
+
+  elements.form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const inputValue = formData.get('url');
+
+    const schema = yup
+      .string()
+      .required()
+      .url()
+      .notOneOf(watchedState.feeds.map((feed) => feed.url));
+  });
 };
