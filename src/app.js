@@ -2,6 +2,15 @@ import * as yup from 'yup';
 import i18next from 'i18next';
 import resources from '../locales/ru.js';
 import axios from 'axios';
+import getParsedRSS from './rssParser.js';
+
+const buildProxiedUrl = (url) => {
+  const proxiedUrl = new url('https://allorigins.hexlet.app/get');
+  proxiedUrl.searchParams.set('disableCache', 'true');
+  proxiedUrl.searchParams.set('url', url);
+  return proxiedUrl;
+};
+const getDownloadedRss = (url) => axios.get(buildProxiedUrl(url));
 
 const runApp = () => {
   const i18nextInstance = i18next.createInstance();
@@ -62,5 +71,32 @@ const runApp = () => {
       .required()
       .url()
       .notOneOf(watchedState.feeds.map((feed) => feed.url));
+
+    schema
+      .validate(inputValue)
+      .then(() => {
+        watchedState.form.errors = '';
+        watchedState.form.processState = 'sending';
+        return getDownloadedRss(inputValue);
+      })
+      .then((response) => {
+        const parsedContent = getParsedRSS(response.data.contents, inputValue);
+        watchedState.feeds.unshift(parsedContent.feed);
+        watchedState.posts = parsedContent.posts.concat(watchedState.posts);
+        watchedState.form.errors = '';
+        watchedState.form.processState = 'added';
+      })
+      .catch((err) => {
+        watchedState.form.processState = 'error';
+        if (err.isAxiosError) {
+          watchedState.form.errors = 'network';
+        } else if (err.isParsingError) {
+          watchedState.form.errors = 'notValidRss';
+        } else if (err.name === 'ValidationError') {
+          watchedState.form.errors = err.message;
+        } else {
+          watchedState.form.errors = 'unknown';
+        }
+      });
   });
 };
