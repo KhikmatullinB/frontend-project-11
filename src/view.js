@@ -131,3 +131,56 @@ const renderPosts = (state, elements, i18nextInstance, posts) => {
     ul.append(li);
   });
 };
+const renderVisitedPosts = (visitedPostsId) => {
+  visitedPostsId.forEach((id) => {
+    const a = document.querySelector(`a[data-id="${id}"]`);
+    a.classList.remove('fw-bold');
+    a.classList.add('fw-normal', 'link-secondary');
+  });
+};
+
+const renderCurrentModal = (state, elements, currentPostId) => {
+  const currentPost = state.posts.find((post) => post.id === currentPostId);
+
+  const modalTitle = elements.modal.querySelector('.modal-title');
+  const modalBody = elements.modal.querySelector('.modal-body');
+  const modalLink = elements.modal.querySelector('.full-article');
+
+  modalTitle.textContent = currentPost.title;
+  modalBody.textContent = currentPost.description;
+  modalLink.setAttribute('href', currentPost.link);
+};
+
+const watch = (state, elements, i18nextInstance) =>
+  onChange(state, (path, value) => {
+    switch (path) {
+      case 'form.processState':
+        handleProcessState(elements, i18nextInstance, value);
+        break;
+
+      case 'form.errors':
+        renderErrors(elements, i18nextInstance, value);
+        break;
+
+      case 'feeds':
+        renderFeeds(elements, i18nextInstance, value);
+        break;
+
+      case 'posts':
+        renderPosts(state, elements, i18nextInstance, value);
+        break;
+
+      case 'visitedPostsId':
+        renderVisitedPosts(value);
+        break;
+
+      case 'currentPostId':
+        renderCurrentModal(state, elements, value);
+        break;
+
+      default:
+        break;
+    }
+  });
+
+export default watch;
