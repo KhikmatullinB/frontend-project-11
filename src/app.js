@@ -4,7 +4,7 @@ import i18next from 'i18next';
 import resources from '../locales/ru.js';
 import axios from 'axios';
 import getParsedRSS from './rssParser.js';
-import './styles/style.scss';
+import '../styles/styles.scss';
 import watch from './view.js';
 
 const buildProxiedUrl = (url) => {
