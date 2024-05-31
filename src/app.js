@@ -1,14 +1,14 @@
 import 'bootstrap';
 import * as yup from 'yup';
 import i18next from 'i18next';
-import resources from '../locales/ru.js';
+import resources from '../locales/locales.js';
 import axios from 'axios';
 import getParsedRSS from './rssParser.js';
 import '../styles/styles.scss';
 import watch from './view.js';
 
 const buildProxiedUrl = (url) => {
-  const proxiedUrl = new url('https://allorigins.hexlet.app/get');
+  const proxiedUrl = new URL('https://allorigins.hexlet.app/get');
   proxiedUrl.searchParams.set('disableCache', 'true');
   proxiedUrl.searchParams.set('url', url);
   return proxiedUrl;
@@ -94,7 +94,7 @@ const runApp = () => {
         if (err.isAxiosError) {
           watchedState.form.errors = 'network';
         } else if (err.isParsingError) {
-          watchedState.form.errors = 'notValidRss';
+          watchedState.form.errors = 'NotValidRss';
         } else if (err.name === 'ValidationError') {
           watchedState.form.errors = err.message;
         } else {
