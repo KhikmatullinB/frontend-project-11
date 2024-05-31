@@ -36,7 +36,7 @@ const runApp = () => {
 
   yup.setLocale({
     string: {
-      default: 'NotValidUrl',
+      default: 'notValidUrl',
     },
     mixed: {
       notOneOf: 'notOneOf',
@@ -96,7 +96,7 @@ const runApp = () => {
         } else if (err.isParsingError) {
           watchedState.form.errors = 'NotValidRss';
         } else if (err.name === 'ValidationError') {
-          watchedState.form.errors = err.message;
+          watchedState.form.errors = 'notValidUrl';
         } else {
           watchedState.form.errors = 'unknown';
         }
