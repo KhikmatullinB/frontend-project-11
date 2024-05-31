@@ -16,9 +16,10 @@ const buildProxiedUrl = (url) => {
 const getDownloadedRss = (url) => axios.get(buildProxiedUrl(url));
 
 const runApp = () => {
+  const defaultLanguage = 'ru';
   const i18nextInstance = i18next.createInstance();
   i18nextInstance.init({
-    lng: 'ru',
+    lng: defaultLanguage,
     debug: false,
     resources,
   });
