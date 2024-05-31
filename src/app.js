@@ -110,19 +110,17 @@ const runApp = () => {
 
   const updateRssPosts = () => {
     const urls = watchedState.feeds.map((feed) => feed.url);
-    const promises = urls.map((url) =>
-      getDownloadedRss(url)
-        .then((updatedResponse) => {
-          const updatedParsedContent = getParsedRSS(updatedResponse.data.contents);
-          const { posts: newPosts } = updatedParsedContent;
-          const addedPostsLinks = watchedState.posts.map((post) => post.link);
-          const addedNewPosts = newPosts.filter((post) => !addedPostsLinks.includes(post.link));
-          watchedState.posts = addedNewPosts.concat(watchedState.posts);
-        })
-        .catch((err) => {
-          throw err;
-        })
-    );
+    const promises = urls.map((url) => getDownloadedRss(url)
+      .then((updatedResponse) => {
+        const updatedParsedContent = getParsedRSS(updatedResponse.data.contents);
+        const { posts: newPosts } = updatedParsedContent;
+        const addedPostsLinks = watchedState.posts.map((post) => post.link);
+        const addedNewPosts = newPosts.filter((post) => !addedPostsLinks.includes(post.link));
+        watchedState.posts = addedNewPosts.concat(watchedState.posts);
+      })
+      .catch((err) => {
+        throw err;
+      }));
     Promise.all(promises).finally(() => setTimeout(() => updateRssPosts(), 5000));
   };
   updateRssPosts();

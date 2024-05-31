@@ -145,34 +145,34 @@ const renderCurrentModal = (state, elements, currentPostId) => {
 };
 
 const watch = (state, elements, i18nextInstance) => onChange(state, (path, value) => {
-    switch (path) {
-      case 'form.processState':
-        handleProcessState(elements, i18nextInstance, value);
-        break;
+  switch (path) {
+    case 'form.processState':
+      handleProcessState(elements, i18nextInstance, value);
+      break;
 
-      case 'form.errors':
-        renderErrors(elements, i18nextInstance, value);
-        break;
+    case 'form.errors':
+      renderErrors(elements, i18nextInstance, value);
+      break;
 
-      case 'feeds':
-        renderFeeds(elements, i18nextInstance, value);
-        break;
+    case 'feeds':
+      renderFeeds(elements, i18nextInstance, value);
+      break;
 
-      case 'posts':
-        renderPosts(state, elements, i18nextInstance, value);
-        break;
+    case 'posts':
+      renderPosts(state, elements, i18nextInstance, value);
+      break;
 
-      case 'visitedPostsId':
-        renderVisitedPosts(value);
-        break;
+    case 'visitedPostsId':
+      renderVisitedPosts(value);
+      break;
 
-      case 'currentPostId':
-        renderCurrentModal(state, elements, value);
-        break;
+    case 'currentPostId':
+      renderCurrentModal(state, elements, value);
+      break;
 
-      default:
-        break;
-    }
-  });
+    default:
+      break;
+  }
+});
 
 export default watch;
