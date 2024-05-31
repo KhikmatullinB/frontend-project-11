@@ -1,8 +1,8 @@
 import 'bootstrap';
 import * as yup from 'yup';
 import i18next from 'i18next';
-import resources from '../locales/locales.js';
 import axios from 'axios';
+import resources from '../locales/locales.js';
 import getParsedRSS from './rssParser.js';
 import '../styles/styles.scss';
 import watch from './view.js';
@@ -111,8 +111,7 @@ const runApp = () => {
   const updateRssPosts = () => {
     const urls = watchedState.feeds.map((feed) => feed.url);
     const promises = urls.map((url) =>
-      getDownloadedRss(url)
-        .then((updatedResponse) => {
+      getDownloadedRss(url).then((updatedResponse) => {
           const updatedParsedContent = getParsedRSS(updatedResponse.data.contents);
           const { posts: newPosts } = updatedParsedContent;
           const addedPostsLinks = watchedState.posts.map((post) => post.link);
