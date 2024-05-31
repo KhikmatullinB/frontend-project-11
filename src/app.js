@@ -72,7 +72,7 @@ const runApp = () => {
     const schema = yup
       .string()
       .required()
-      .url()
+      .url('notValidUrl')
       .notOneOf(watchedState.feeds.map((feed) => feed.url));
 
     schema
