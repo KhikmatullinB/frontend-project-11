@@ -96,7 +96,7 @@ const runApp = () => {
         } else if (err.isParsingError) {
           watchedState.form.errors = 'NotValidRss';
         } else if (err.name === 'ValidationError') {
-          watchedState.form.errors = 'notValidUrl';
+          watchedState.form.errors = err.message;
         } else {
           watchedState.form.errors = 'unknown';
         }
