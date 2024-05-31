@@ -103,7 +103,7 @@ const renderPosts = (state, elements, i18nextInstance, posts) => {
       'justify-content-between',
       'align-items-start',
       'border-0',
-      'border-end-0',
+      'border-end-0'
     );
 
     const a = document.createElement('a');
@@ -151,7 +151,8 @@ const renderCurrentModal = (state, elements, currentPostId) => {
   modalLink.setAttribute('href', currentPost.link);
 };
 
-const watch = (state, elements, i18nextInstance) => onChange(state, (path, value) => {
+const watch = (state, elements, i18nextInstance) =>
+  onChange(state, (path, value) => {
     switch (path) {
       case 'form.processState':
         handleProcessState(elements, i18nextInstance, value);
