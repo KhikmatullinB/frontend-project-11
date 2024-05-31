@@ -110,9 +110,7 @@ const runApp = () => {
 
   const updateRssPosts = () => {
     const urls = watchedState.feeds.map((feed) => feed.url);
-    const promises = urls.map((url) =>
-      getDownloadedRss(url)
-        .then((updatedResponse) => {
+    const promises = urls.map((url) => getDownloadedRss(url).then((updatedResponse) => {
           const updatedParsedContent = getParsedRSS(updatedResponse.data.contents);
           const { posts: newPosts } = updatedParsedContent;
           const addedPostsLinks = watchedState.posts.map((post) => post.link);
