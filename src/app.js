@@ -94,7 +94,7 @@ const runApp = () => {
         if (err.isAxiosError) {
           watchedState.form.errors = 'network';
         } else if (err.isParsingError) {
-          watchedState.form.errors = 'NotValidRss';
+          watchedState.form.errors = 'notValidRss';
         } else if (err.name === 'ValidationError') {
           watchedState.form.errors = err.message;
         } else {
