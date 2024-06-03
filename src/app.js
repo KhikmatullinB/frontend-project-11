@@ -1,11 +1,12 @@
-import 'bootstrap';
 import * as yup from 'yup';
 import i18next from 'i18next';
 import axios from 'axios';
-import resources from '../locales/locales.js';
+import _ from 'lodash';
+import resources from './locales/locales.js';
 import getParsedRSS from './rssParser.js';
-import '../styles/styles.scss';
 import watch from './view.js';
+
+const timeout = 5000;
 
 const buildProxiedUrl = (url) => {
   const proxiedUrl = new URL('https://allorigins.hexlet.app/get');
@@ -121,7 +122,7 @@ const runApp = () => {
       .catch((err) => {
         throw err;
       }));
-    Promise.all(promises).finally(() => setTimeout(() => updateRssPosts(), 5000));
+    Promise.all(promises).finally(() => setTimeout(() => updateRssPosts(), timeout));
   };
   updateRssPosts();
 };
