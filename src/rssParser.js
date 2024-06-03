@@ -4,10 +4,9 @@ const getParsedRSS = (content, url = null) => {
   const parser = new DOMParser();
   const parsedContent = parser.parseFromString(content, 'application/xml');
   if (parsedContent.querySelector('parsererror')) {
-    const error = new Error();
-    error.name = 'ParsingError';
-    error.message = 'Does not contain valid RSS';
+    const error = new Error('notValidRss');
     error.isParsingError = true;
+    error.data = parsedContent.textContent;
     throw error;
   }
 
