@@ -26,7 +26,7 @@ const runApp = () => {
 
   const initialState = {
     form: {
-      processState: 'filling',
+      state: 'filling',
       errors: '',
     },
     feeds: [],
@@ -80,18 +80,20 @@ const runApp = () => {
       .validate(inputValue)
       .then(() => {
         watchedState.form.errors = '';
-        watchedState.form.processState = 'sending';
+        watchedState.form.state = 'sending';
         return getDownloadedRss(inputValue);
       })
       .then((response) => {
-        const parsedContent = getParsedRSS(response.data.contents, inputValue);
-        watchedState.feeds.unshift(parsedContent.feed);
-        watchedState.posts = parsedContent.posts.concat(watchedState.posts);
+        const parsedContent = getParsedRSS(response.data.contents);
+        const { feed, posts } = parsedContent;
+        const itemId = posts.map((item) => ({ ...item, id: _.uniqueId() }));
+        watchedState.feeds.unshift(feed);
+        watchedState.posts.unshift(itemId);
         watchedState.form.errors = '';
-        watchedState.form.processState = 'added';
+        watchedState.form.state = 'added';
       })
       .catch((err) => {
-        watchedState.form.processState = 'error';
+        watchedState.form.state = 'error';
         if (err.isAxiosError) {
           watchedState.form.errors = 'network';
         } else if (err.isParsingError) {
@@ -111,14 +113,14 @@ const runApp = () => {
 
   const updateRssPosts = () => {
     const urls = watchedState.feeds.map((feed) => feed.url);
-    const promises = urls.map((url) => getDownloadedRss(url)
-      .then((updatedResponse) => {
-        const updatedParsedContent = getParsedRSS(updatedResponse.data.contents);
-        const { posts: newPosts } = updatedParsedContent;
-        const addedPostsLinks = watchedState.posts.map((post) => post.link);
-        const addedNewPosts = newPosts.filter((post) => !addedPostsLinks.includes(post.link));
-        watchedState.posts = addedNewPosts.concat(watchedState.posts);
-      })
+    const promises = urls.map((url) => getDownloadedRss(url).then((updatedResponse) => {
+      const updatedParsedContent = getParsedRSS(updatedResponse.data.contents);
+      const { posts: newPosts } = updatedParsedContent;
+      const addedPostsLinks = watchedState.posts.map((post) => post.link);
+      const addedNewPosts = newPosts.filter((post) => !addedPostsLinks.includes(post.link));
+      watchedState.posts = addedNewPosts.concat(watchedState.posts);
+      console.log(addedNewPosts);
+    })
       .catch((err) => {
         throw err;
       }));

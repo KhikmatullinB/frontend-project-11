@@ -1,7 +1,7 @@
 import onChange from 'on-change';
 
-const handleProcessState = (elements, i18nextInstance, processState) => {
-  switch (processState) {
+const handleProcessState = (elements, i18nextInstance, state) => {
+  switch (state) {
     case 'filling':
       elements.submit.disabled = false;
       break;
@@ -27,7 +27,7 @@ const handleProcessState = (elements, i18nextInstance, processState) => {
       elements.input.focus();
       break;
     default:
-      throw new Error(`Unknown process state: ${processState}`);
+      throw new Error(`Unknown process state: ${state}`);
   }
 };
 
@@ -146,7 +146,7 @@ const renderCurrentModal = (state, elements, currentPostId) => {
 
 const watch = (state, elements, i18nextInstance) => onChange(state, (path, value) => {
   switch (path) {
-    case 'form.processState':
+    case 'form.state':
       handleProcessState(elements, i18nextInstance, value);
       break;
 
