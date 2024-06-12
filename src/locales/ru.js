@@ -1,22 +1,16 @@
 export default {
   translation: {
+    success: 'RSS успешно загружен',
     errors: {
-      notValidUrl: 'Ссылка должна быть валидным URL',
-      notOneOf: 'RSS уже существует',
-      notValidRss: 'Ресурс не содержит валидный RSS',
-      network: 'Ошибка сети',
-      unknown: 'Что-то пошло не так... Попробуйте еще раз',
+      invalidUrl: 'Ссылка должна быть валидным URL',
+      dublUrl: 'RSS уже существует',
+      emptyInput: 'Не должно быть пустым',
+      parserError: 'Ресурс не содержит валидный RSS',
+      unknowError: 'Неизвестная ошибка',
+      networkError: 'Ошибка сети',
     },
-    process: {
-      download: 'Идёт загрузка...',
-    },
-    success: {
-      rss: 'RSS успешно загружен',
-    },
-    main: {
-      posts: 'Посты',
-      feeds: 'Фиды',
-      openModal: 'Просмотр',
-    },
+    posts: 'Посты',
+    openBtn: 'Просмотр',
+    feeds: 'Фиды',
   },
 };
