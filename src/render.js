@@ -18,10 +18,9 @@ const renderModalWindow = (id, posts, elements) => {
   elements.modalFullArticle.setAttribute('href', selectedPost.link);
 };
 
-const renderContainer = (containerName, i18n) => {
+const createContainer = (containerName, i18n) => {
   const card = document.createElement('div');
   card.classList.add('card', 'border-0');
-  card.innerHTML = '';
 
   const cardBody = document.createElement('div');
   cardBody.classList.add('card-body');
@@ -39,7 +38,7 @@ const renderContainer = (containerName, i18n) => {
 };
 
 const renderFeeds = (feeds, i18n, elements) => {
-  const [card, list] = renderContainer('feeds', i18n);
+  const [card, list] = createContainer('feeds', i18n);
 
   feeds.forEach((feed) => {
     const li = document.createElement('li');
@@ -59,7 +58,7 @@ const renderFeeds = (feeds, i18n, elements) => {
 };
 
 const renderPosts = (posts, shownPostsIds, i18n, elements) => {
-  const [card, list] = renderContainer('posts', i18n);
+  const [card, list] = createContainer('posts', i18n);
 
   posts.forEach((post) => {
     const li = document.createElement('li');
